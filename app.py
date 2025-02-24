@@ -85,14 +85,14 @@ st.markdown("""
     
     /* 기본 카드 스타일 */
     .game-card {
-        background: #121212;
+        background: rgba(255, 255, 255, 0.05);  /* 배경색을 더 투명하게 */
         border-radius: 25px;
         padding: 30px;
         margin: 20px 0;
         color: white;
         position: relative;
         border: 1px solid rgba(255, 255, 255, 0.1);
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(5px);
     }
     
     /* 역할 카드 스타일 */
@@ -118,19 +118,52 @@ st.markdown("""
         animation: neonGlow 2s infinite;
     }
     
-    /* 역할 텍스트 스타일 */
+    /* 역할 텍스트 스타일 수정 */
     .role-text {
-        font-size: 3em;
+        font-size: min(2.5em, 8vw);  /* 반응형 폰트 크기 */
         font-weight: 700;
-        margin: 20px 0;
-        text-transform: uppercase;
-        animation: textGlow 2s infinite;
+        margin: 15px 0;
+        padding: 0 10px;  /* 좌우 여백 추가 */
+        line-height: 1.2;  /* 줄 간격 조정 */
+        white-space: nowrap;  /* 줄바꿈 방지 */
+        animation: textGlow 3s infinite;
     }
     
+    /* 부제목 스타일 수정 */
     .sub-text {
-        font-size: 1.5em;
-        margin: 15px 0;
-        opacity: 0.9;
+        font-size: min(1.3em, 5vw);  /* 반응형 폰트 크기 */
+        margin: 12px 0;
+        opacity: 0.95;
+        line-height: 1.3;
+        padding: 0 15px;  /* 좌우 여백 추가 */
+    }
+    
+    /* 라운드 표시 스타일 수정 */
+    .round-indicator {
+        font-size: min(1.2em, 4vw);  /* 반응형 폰트 크기 */
+        padding: 8px 15px;
+        border-radius: 12px;
+        top: 15px;
+        left: 15px;
+    }
+    
+    /* 모바일 최적화 미디어 쿼리 */
+    @media (max-width: 768px) {
+        .role-card {
+            padding: 25px 15px;
+            margin: 15px auto;
+        }
+        
+        .progress-bar {
+            margin: 15px 0 10px 0;
+        }
+        
+        .icon-circle {
+            width: 30px;
+            height: 30px;
+            font-size: 1.1em;
+            margin: 10px auto;
+        }
     }
     
     /* 라운드 표시 */
@@ -459,15 +492,14 @@ elif st.session_state.game_phase == 'explanation':
     # 이전 설명들 표시
     if st.session_state.descriptions:
         st.markdown("""
-            <div class="explanation-card">
-                <h3>지금까지의 설명:</h3>
+            <div style="margin: 20px 0;">
+                <h3 style="color: white; margin-bottom: 15px;">지금까지의 설명:</h3>
         """, unsafe_allow_html=True)
         
         for name, desc in st.session_state.descriptions.items():
             st.markdown(f"""
-                <div class="description-box">
-                    <h4>{name}</h4>
-                    <p>{desc}</p>
+                <div style="color: white; margin: 10px 0; line-height: 1.6;">
+                    <span style="font-weight: bold;">{name}</span>: {desc}
                 </div>
             """, unsafe_allow_html=True)
         
@@ -505,8 +537,8 @@ elif st.session_state.game_phase == 'explanation':
             
             # 설명 입력
             st.markdown("""
-                <div class="explanation-card">
-                    <h3>당신의 설명을 입력하세요</h3>
+                <div style="margin: 20px 0;">
+                    <h3 style="color: white;">당신의 설명을 입력하세요</h3>
                 </div>
             """, unsafe_allow_html=True)
             explanation = st.text_input(
@@ -532,11 +564,9 @@ elif st.session_state.game_phase == 'explanation':
             st.session_state.descriptions[current_player.name] = explanation
         
         st.markdown(f"""
-            <div class="explanation-card">
+            <div style="margin: 20px 0; color: white;">
                 <h3>AI의 설명</h3>
-                <div class="description-box">
-                    <p>{st.session_state.descriptions[current_player.name]}</p>
-                </div>
+                <p style="margin-top: 10px;">{st.session_state.descriptions[current_player.name]}</p>
             </div>
         """, unsafe_allow_html=True)
         
