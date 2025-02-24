@@ -666,7 +666,6 @@ elif st.session_state.game_phase == 'result':
     
     # 점수 계산
     if 'points_calculated' not in st.session_state:
-        st.session_state.points_calculated = True
         
         highest_votes = max(vote_counts.values())
         top_candidates = [name for name, cnt in vote_counts.items() if cnt == highest_votes]
@@ -727,6 +726,7 @@ elif st.session_state.game_phase == 'result':
                                 <p>제시어는 '{st.session_state.secret_word}'였습니다!</p>
                             </div>
                         """, unsafe_allow_html=True)
+                    st.session_state.points_calculated = True
                     
             else:
                 # AI 라이어의 제시어 추측
@@ -756,13 +756,14 @@ elif st.session_state.game_phase == 'result':
                             <p>제시어는 '{st.session_state.secret_word}'였습니다!</p>
                         </div>
                     """, unsafe_allow_html=True)
+                st.session_state.points_calculated = True
                 
         else:
             # 라이어 승리
-            st.markdown("""
+            st.markdown(f"""
                 <div class="role-card liar">
                     <h3>라이어 승리!</h3>
-                    <p>라이어가 성공적으로 위장했습니다!</p>
+                    <p>라이어 {game.liar.name}이(가) 성공적으로 위장했습니다!</p>
                     <p>제시어는 '{st.session_state.secret_word}'였습니다!</p>
                 </div>
             """, unsafe_allow_html=True)
