@@ -795,7 +795,7 @@ elif st.session_state.game_phase == 'game_over':
     # 게임 종료 타이틀
     st.markdown("""
         <div class="role-card" style="background: linear-gradient(135deg, #FFD700 0%, #FF8C00 100%);">
-            <h2>🎮 게임 종료!</h2>
+            <h2>게임 종료!</h2>
             <div class="icon-circle">🏆</div>
             <div class="progress-bar">
                 <div class="progress-fill" style="width: 100%;"></div>
@@ -812,17 +812,24 @@ elif st.session_state.game_phase == 'game_over':
     
     # 각 플레이어의 점수를 정렬하여 표시
     sorted_players = sorted(game.players, key=lambda x: x.score, reverse=True)
+    
+    # 점수 컨테이너 생성
+    st.markdown("""
+        <div style="display: flex; justify-content: center; gap: 20px; margin: 20px 0;">
+    """, unsafe_allow_html=True)
+    
     for i, player in enumerate(sorted_players):
         medal = "🥇" if i == 0 else "🥈" if i == 1 else "🥉" if i == 2 else "👏"
         st.markdown(f"""
-            <div class="description-box" style="transform: translateY(-{i*2}px); transition: all 0.3s ease;">
+            <div style="text-align: center; background: rgba(255,255,255,0.1); 
+                        padding: 15px; border-radius: 15px; 
+                        min-width: 150px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
                 <h4>{medal} {player.name}</h4>
-                <div class="progress-bar">
-                    <div class="progress-fill" style="width: {(player.score/max(p.score for p in game.players))*100}%;"></div>
-                </div>
-                <p style="text-align: right; font-size: 1.2em; font-weight: bold;">{player.score}점</p>
+                <p style="font-size: 1.5em; font-weight: bold; margin: 10px 0;">{player.score}점</p>
             </div>
         """, unsafe_allow_html=True)
+    
+    st.markdown("</div>", unsafe_allow_html=True)
     
     # 승자 발표
     max_score = max(player.score for player in game.players)
