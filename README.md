@@ -4,13 +4,13 @@
 이 프로젝트는  '라이어 게임'을 웹 기반으로 구현한 애플리케이션입니다. 플레이어가 AI가 함께 즐길 수 있는 대화형 게임으로, Streamlit을 사용하여 개발되었습니다.
 
 ## 웹 플레이
-🎮 [라이어 게임 플레이하기](https://kubig-nlpteam1-liargame.streamlit.app/)
+🎮 [[라이어 게임 플레이하기]https://kubig-liargame.streamlit.app/]
 
 ## 로컬 실행
 
 1. 저장소 클론
 ```bash
-git clone https://github.com/seo-yeonkang/liar_game
+git clone https://github.com/seo-yeonkang/liar_game-temaver
 cd liar-game
 ```
 2. 가상환경 생성 및 활성화
