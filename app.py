@@ -710,17 +710,18 @@ elif st.session_state.game_phase == 'result':
                 liar_guess = st.text_input("제시어를 맞춰보세요")
                 if st.button("정답 제출"):
                     if liar_guess.lower() == st.session_state.secret_word.lower():
-                        game.liar.score = original_scores[game.liar.name] + 3
-                        st.markdown("""
-                            <div class="role-card liar">
-                                <h3>대단해요!</h3>
-                                <p>제시어를 맞추어 3점을 획득했습니다!</p>
-                            </div>
-                        """, unsafe_allow_html=True)
+                        if game.liar.score == original_scores[game.liar.name]:
+                            game.liar.score = original_scores[game.liar.name] + 3
+                            st.markdown(f"""
+                                <div class="role-card liar">
+                                    <h3>대단해요!</h3>
+                                    <p>{game.liar.name}이(가) 제시어를 맞추어 3점을 획득했습니다!</p>
+                                </div>
+                            """, unsafe_allow_html=True)
                     else:
-                        st.markdown("""
+                        st.markdown(f"""
                             <div class="explanation-card">
-                                <p>아쉽게도 틀렸습니다.</p>
+                                <p>{game.liar.name}이(가) 정답을 맞히지 못했습니다.</p>
                             </div>
                         """, unsafe_allow_html=True)
                     st.session_state.points_calculated = True
@@ -738,12 +739,13 @@ elif st.session_state.game_phase == 'result':
                 """, unsafe_allow_html=True)
                 
                 if liar_guess.lower() == st.session_state.secret_word.lower():
-                    game.liar.score = original_scores[game.liar.name] + 3
-                    st.markdown(f"""
-                        <div class="role-card liar">
-                            <p>{game.liar.name}이(가) 제시어를 맞추어 3점을 획득했습니다!</p>
-                        </div>
-                    """, unsafe_allow_html=True)
+                    if game.liar.score == original_scores[game.liar.name]:
+                        game.liar.score = original_scores[game.liar.name] + 3
+                        st.markdown(f"""
+                            <div class="role-card liar">
+                                <p>{game.liar.name}이(가) 제시어를 맞추어 3점을 획득했습니다!</p>
+                            </div>
+                        """, unsafe_allow_html=True)
                 else:
                     st.markdown(f"""
                         <div class="explanation-card">
