@@ -435,9 +435,9 @@ elif st.session_state.game_phase == 'role_reveal':
         role_content = f"""
             <div class="role-card liar">
                 <div class="round-indicator">라운드 {game.current_round}/{game.total_rounds}</div>
-                
                 <div class="role-text">
-                    <p>당신은 라이어입니다!</p>
+                    <br>
+                    당신은 라이어입니다!
                 </div>
                 <div class="sub-text">주제: {game.chosen_topic}</div>
                 <div class="sub-text">라이어를 들키지 마세요!</div>
@@ -451,9 +451,9 @@ elif st.session_state.game_phase == 'role_reveal':
         role_content = f"""
             <div class="role-card citizen">
                 <div class="round-indicator">라운드 {game.current_round}/{game.total_rounds}</div>
-                
                 <div class="role-text">
-                    <p>당신은 시민입니다!</p>
+                    <br>
+                    당신은 시민입니다!
                 </div>
                 <div class="sub-text">주제: {game.chosen_topic}</div>
                 <div class="sub-text">제시어: {st.session_state.secret_word}</div>
