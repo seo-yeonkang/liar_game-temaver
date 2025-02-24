@@ -100,12 +100,14 @@ st.markdown("""
         font-family: 'Orbitron', sans-serif;
         color: white;
         text-align: center;
-        padding: 40px;
+        padding: 30px 20px;
         border-radius: 25px;
         margin: 20px auto;
         max-width: 500px;
         position: relative;
         overflow: hidden;
+        backdrop-filter: blur(10px);
+        letter-spacing: 0.5px;
     }
     
     .role-card.liar {
@@ -118,7 +120,7 @@ st.markdown("""
         animation: neonGlow 2s infinite;
     }
     
-    /* 역할 텍스트 스타일 수정 */
+    /* 역할 텍스트 스타일 */
     .role-text {
         font-size: min(2.5em, 8vw);  /* 반응형 폰트 크기 */
         font-weight: 700;
@@ -434,7 +436,9 @@ elif st.session_state.game_phase == 'role_reveal':
         role_content = f"""
             <div class="role-card liar">
                 <div class="round-indicator">라운드 {game.current_round}/{game.total_rounds}</div>
-                <div class="role-text">당신은 라이어입니다!</div>
+                <div class="role-text">
+                    <p>당신은 라이어입니다!</p>
+                </div>
                 <div class="sub-text">주제: {game.chosen_topic}</div>
                 <div class="sub-text">라이어를 들키지 마세요!</div>
                 <div class="icon-circle">?</div>
@@ -447,7 +451,9 @@ elif st.session_state.game_phase == 'role_reveal':
         role_content = f"""
             <div class="role-card citizen">
                 <div class="round-indicator">라운드 {game.current_round}/{game.total_rounds}</div>
-                <div class="role-text">당신은 시민입니다!</div>
+                <div class="role-text">
+                    <p>당신은 시민입니다!</p>
+                </div>
                 <div class="sub-text">주제: {game.chosen_topic}</div>
                 <div class="sub-text">제시어: {st.session_state.secret_word}</div>
                 <div class="sub-text">라이어를 찾으세요!</div>
