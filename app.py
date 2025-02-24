@@ -723,6 +723,7 @@ elif st.session_state.game_phase == 'result':
                         st.markdown(f"""
                             <div class="explanation-card">
                                 <p>{game.liar.name}이(가) 정답을 맞히지 못했습니다.</p>
+                                <p>제시어는 '{st.session_state.secret_word}'였습니다!</p>
                             </div>
                         """, unsafe_allow_html=True)
                     
@@ -751,6 +752,7 @@ elif st.session_state.game_phase == 'result':
                     st.markdown(f"""
                         <div class="explanation-card">
                             <p>{game.liar.name}이(가) 제시어를 맞추지 못했습니다.</p>
+                            <p>제시어는 '{st.session_state.secret_word}'였습니다!</p>
                         </div>
                     """, unsafe_allow_html=True)
                 
@@ -760,6 +762,7 @@ elif st.session_state.game_phase == 'result':
                 <div class="role-card liar">
                     <h3>라이어 승리!</h3>
                     <p>라이어가 성공적으로 위장했습니다!</p>
+                    <p>제시어는 '{st.session_state.secret_word}'였습니다!</p>
                 </div>
             """, unsafe_allow_html=True)
             
