@@ -308,7 +308,8 @@ st.markdown("""
     
     /* 사이드바 스타일 */
     .sidebar .sidebar-content {
-        background: #121212;
+        background: #121212 !important;
+        opacity: 1 !important;;
     }
     </style>
 """, unsafe_allow_html=True)
