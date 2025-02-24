@@ -386,6 +386,7 @@ st.title("라이어 게임\n ##### 🎭난 진짜 라이어 아님. | Team 장�
 if st.session_state.game_phase == 'setup':
     total_players = st.number_input("총 플레이어 수를 입력하세요 (최소 3명)", min_value=3, value=3)
     human_name = st.text_input("당신의 이름을 입력하세요")
+    st.info("tip. 중간 점수를 확인하고 싶다면 사이드바를 확인하세요!")
     
     if st.button("게임 시작하기") and human_name:
         with st.spinner("🎲 게임을 준비하고 있습니다..."):
@@ -394,6 +395,11 @@ if st.session_state.game_phase == 'setup':
                 players.append(Player(f"AI_{i}"))
             st.session_state.game = LiarGame(players)
             st.session_state.game_phase = 'role_reveal'
+
+            time.sleep(5)
+            st.info("😉 거의 다 되었습니다...")
+            time.sleep(1)
+            
         st.rerun()
     st.markdown('</div>', unsafe_allow_html=True)
 
@@ -690,14 +696,17 @@ elif st.session_state.game_phase == 'result':
                 </div>
             """, unsafe_allow_html=True)
             
-            for player in game.players:
-                if not player.is_liar and player.score == original_scores[player.name]:
-                    player.score = original_scores[player.name] + 1
-                    st.markdown(f"""
-                        <div class="score-update">
-                            <p>{player.name}이(가) 1점을 획득했습니다!</p>
-                        </div>
-                    """, unsafe_allow_html=True)
+            # 시민들 점수 추가 (1번만 실행되도록)
+            if not st.session_state.get('citizens_scored', False):
+                for player in game.players:
+                    if not player.is_liar:
+                        player.score = original_scores[player.name] + 1
+                        st.markdown(f"""
+                            <div class="score-update">
+                                <p>{player.name}이(가) 1점을 획득했습니다!</p>
+                            </div>
+                        """, unsafe_allow_html=True)
+                st.session_state.citizens_scored = True
             
             # 라이어의 제시어 맞추기
             if game.liar.is_human:
@@ -711,7 +720,7 @@ elif st.session_state.game_phase == 'result':
                 liar_guess = st.text_input("제시어를 맞춰보세요")
                 if st.button("정답 제출"):
                     if liar_guess.lower() == st.session_state.secret_word.lower():
-                        if game.liar.score == original_scores[game.liar.name]:
+                        if not st.session_state.get('liar_scored', False):
                             game.liar.score = original_scores[game.liar.name] + 3
                             st.markdown(f"""
                                 <div class="role-card liar">
@@ -719,6 +728,7 @@ elif st.session_state.game_phase == 'result':
                                     <p>{game.liar.name}이(가) 제시어를 맞추어 3점을 획득했습니다!</p>
                                 </div>
                             """, unsafe_allow_html=True)
+                            st.session_state.liar_scored = True
                     else:
                         st.markdown(f"""
                             <div class="explanation-card">
@@ -742,13 +752,14 @@ elif st.session_state.game_phase == 'result':
                 """, unsafe_allow_html=True)
                 
                 if liar_guess.lower() == st.session_state.secret_word.lower():
-                    if game.liar.score == original_scores[game.liar.name]:
+                    if not st.session_state.get('liar_scored', False):
                         game.liar.score = original_scores[game.liar.name] + 3
                         st.markdown(f"""
                             <div class="role-card liar">
                                 <p>{game.liar.name}이(가) 제시어를 맞추어 3점을 획득했습니다!</p>
                             </div>
                         """, unsafe_allow_html=True)
+                        st.session_state.liar_scored = True
                 else:
                     st.markdown(f"""
                         <div class="explanation-card">
@@ -768,13 +779,14 @@ elif st.session_state.game_phase == 'result':
                 </div>
             """, unsafe_allow_html=True)
             
-            if game.liar.score == original_scores[game.liar.name]:
+            if not st.session_state.get('liar_scored', False):
                 game.liar.score = original_scores[game.liar.name] + 1
                 st.markdown(f"""
                     <div class="score-update">
                         <p>라이어({game.liar.name})가 1점을 획득했습니다!</p>
                     </div>
                 """, unsafe_allow_html=True)
+                st.session_state.liar_scored = True
             st.session_state.points_calculated = True
 
     # 다음 라운드 진행
