@@ -383,7 +383,6 @@ st.title("라이어 게임\n ##### 🎭난 진짜 라이어 아님. | Team 장�
 
 # 게임 초기 설정
 if st.session_state.game_phase == 'setup':
-    st.markdown('<div class="game-card">', unsafe_allow_html=True)
     total_players = st.number_input("총 플레이어 수를 입력하세요 (최소 3명)", min_value=3, value=3)
     human_name = st.text_input("당신의 이름을 입력하세요")
     
