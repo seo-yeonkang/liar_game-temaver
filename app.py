@@ -386,7 +386,7 @@ st.title("라이어 게임\n ##### 🎭난 진짜 라이어 아님. | Team 장�
 if st.session_state.game_phase == 'setup':
     total_players = st.number_input("총 플레이어 수를 입력하세요 (최소 3명)", min_value=3, value=3)
     human_name = st.text_input("당신의 이름을 입력하세요")
-    st.write("💡tip. 중간 점수를 확인하고 싶다면 사이드바를 확인하세요!")
+    st.write("💡tip. 중간 점수는 사이드바에서 확인하세요!")
     
     if st.button("게임 시작하기") and human_name:
         with st.spinner("🎲 게임을 준비하고 있습니다..."):
