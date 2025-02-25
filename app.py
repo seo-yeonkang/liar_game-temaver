@@ -396,7 +396,7 @@ if st.session_state.game_phase == 'setup':
             st.session_state.game = LiarGame(players)
             st.session_state.game_phase = 'role_reveal'
 
-            time.sleep(5)
+            time.sleep(3)
             st.write("😉 거의 다 되었습니다...")
             time.sleep(1)
             
